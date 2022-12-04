@@ -22,10 +22,26 @@ public abstract class CandleStuff {
     }
 
     public CandleStuff(String candleColor, String stickerName, String boxColor, String laceColor) {
-        this.candleColor = candleColor;
-        this.stickerName = stickerName;
-        this.boxColor = boxColor;
-        this.laceColor = laceColor;
+        this.candleColor = validateLine(candleColor);
+        this.stickerName = validateLine(stickerName);
+        this.boxColor = validateLine(boxColor);
+        this.laceColor = validateLine(laceColor);
+    }
+
+    public String validateLine(String value) {
+        if (value != null || !value.isBlank() || !value.isEmpty()) {
+            return value;
+        } else {
+            throw new IllegalArgumentException("Этот параметр должен быть заполнен");
+        }
+    }
+
+    public byte validateCost(byte value) {
+        if (value != 0 && value > 0) {
+            return value;
+        } else {
+            throw new RuntimeException("Стоимость должна быть указана");
+        }
     }
 
     public byte getBox() {
